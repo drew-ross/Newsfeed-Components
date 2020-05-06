@@ -60,14 +60,23 @@ const header = document.querySelector('.header');
 const body = document.querySelector('body');
 
 //button picture changing
-let menuButtonToggle = false;
+let menuButtonToggle = true;
 const menuImg = './assets/menu.png';
 const cancelImg = './assets/cancel.png';
-
 
 menuButton.addEventListener('click', () =>{
   menuDiv.classList.toggle('menu--open');
   menuDiv.classList.toggle('menu-open');
+  gsap.fromTo(".menu-button", {opacity: 0}, {opacity: 1, duration: .2});
+  if(menuButtonToggle) {
+    menuButtonToggle = false;
+    menuButton.setAttribute('src', cancelImg);
+    gsap.fromTo(".menu-button", {rotation: 0}, {rotation: 90, duration: .2});
+  } else {
+    menuButtonToggle = true;
+    menuButton.setAttribute('src', menuImg);
+    gsap.fromTo(".menu-button", {rotation: 90}, {rotation: 0, duration: .1});
+  }
 });
 
 // header.append(menuDiv);

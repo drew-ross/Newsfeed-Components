@@ -6,11 +6,12 @@
 }
 
 .menu {
+  visibility: hidden;
   color: white;
   position: fixed;
   top: 75px;
-  left: -100vw;
-  transition: left .5s;
+  left: -50vw;
+  transition: left .5s, visibility .5s;
   width: 350px;
   height: 100vh; /* This give the height 100% of the screen or, '100% of View Height' */
   background-color: #81C784;
@@ -29,4 +30,5 @@
 
 .menu--open {
   left: 0;
+  visibility: visible;
 }
