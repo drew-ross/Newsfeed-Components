@@ -50,7 +50,7 @@ const createMenuComponent = (data) => {
   menu.append(ul);
 
   menu.classList.add('menu');
-  
+
   return menu;
 };
 
@@ -60,26 +60,59 @@ const header = document.querySelector('.header');
 const body = document.querySelector('body');
 
 //button picture changing
-let menuButtonToggle = true;
+let menuButtonToggle = false;
 const menuImg = './assets/menu.png';
 const cancelImg = './assets/cancel.png';
 
-menuButton.addEventListener('click', () =>{
-  menuDiv.classList.toggle('menu--open');
-  menuDiv.classList.toggle('menu-open');
-  gsap.fromTo(".menu-button", {opacity: 0}, {opacity: 1, duration: .2});
-  if(menuButtonToggle) {
-    menuButtonToggle = false;
-    menuButton.setAttribute('src', cancelImg);
-    gsap.fromTo(".menu-button", {rotation: 0}, {rotation: 90, duration: .2});
-  } else {
-    menuButtonToggle = true;
-    menuButton.setAttribute('src', menuImg);
-    gsap.fromTo(".menu-button", {rotation: 90}, {rotation: 0, duration: .1});
+//Can be run directly with 'open'/'close'. Also returns a function for storing each option in a new function.
+const menuFunction = (option) => {
+  return () => {
+    if (option === 'close') {
+      if(menuButtonToggle) {
+        gsap.fromTo(".menu-button", { opacity: 0 }, { opacity: 1, duration: .2 });
+        gsap.fromTo(".menu-button", { rotation: 90 }, { rotation: 0, duration: .1 });
+      }
+      menuButtonToggle = false;
+      menuButton.setAttribute('src', menuImg);
+      menuDiv.classList.remove('menu--open');
+    } else if (option === 'open') {
+      if(!menuButtonToggle) {
+        gsap.fromTo(".menu-button", { opacity: 0 }, { opacity: 1, duration: .2 });
+        gsap.fromTo(".menu-button", { rotation: 0 }, { rotation: 90, duration: .1 });
+      }
+      menuButtonToggle = true;
+      menuButton.setAttribute('src', cancelImg);
+      menuDiv.classList.add('menu--open');
+    }
   }
+}
+
+//Create functions for always opening, always closing, or toggling the menu.
+const closeMenu = menuFunction('close');
+const openMenu = menuFunction('open');
+const openCloseMenu = () => {
+  if(menuButtonToggle) {
+    closeMenu();
+  } else {
+    openMenu();
+  }
+}
+
+//Prevent clicking on the menu from closing the menu due to event listener on body.
+menuDiv.addEventListener('click', (event) => {
+  event.stopPropagation();
+});
+//Menu button opens and closes menu
+menuButton.addEventListener('click', (event) => {
+  event.stopPropagation();
+  openCloseMenu();
+});
+//Option to close the menu by clicking elsewhere on the page
+body.addEventListener('click', (event) => {
+  event.stopPropagation();
+  closeMenu();
 });
 
-// header.append(menuDiv);
 body.append(menuDiv);
 
 //change button picture without css background images

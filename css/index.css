@@ -31,7 +31,7 @@
   position: fixed;
   top: 75px;
   left: -50vw;
-  transition: left 0.5s, visibility 0.5s;
+  transition: left 0.3s, visibility 0.3s;
   width: 350px;
   height: 100vh;
   /* This give the height 100% of the screen or, '100% of View Height' */
@@ -82,6 +82,7 @@
   height: 50px;
   overflow: hidden;
   box-shadow: 2px 2px 2px lightgrey;
+  transition: height 0.5s;
 }
 .article h2 {
   font-size: 28px;
