@@ -85,6 +85,15 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Cat',
+    date: 'May 6th, 2020',
+    firstParagraph: `Meeeeouw meowzer flop over, for why use post when this sofa is here yet scratch asdflkjaertvlkjasntvkjn (sits on keyboard). No, you can't close the door, i haven't decided whether or not i wanna go out sun bathe. Attack the child loved it, hated it, loved it, hated it. Let me in let me out let me in let me out let me in let me out who broke this door anyway have my breakfast spaghetti yarn, or jump off balcony, onto stranger's head or scream for no reason at 4 am.`,
+
+    secondParagraph: ` In the middle of the night i crawl onto your chest and purr gently to help you sleep climb a tree, wait for a fireman jump to fireman then scratch his face. Slap the dog because cats rule dont wait for the storm to pass, dance in the rain i could pee on this if i had the energy as lick i the shoes or spread kitty litter all over house.`,
+
+    thirdParagraph: `Fat baby cat best buddy little guy chase mice, for murf pratt ungow ungow or step on your keyboard while you're gaming and then turn in a circle pet me pet me pet me pet me, bite, scratch, why are you petting me but you call this cat food.`
   }
 ];
 
@@ -101,7 +110,7 @@ const data = [
 
   Hint: You will need to use createElement more than once here!
 
-  Your function should take either an object as it's one argument, or 5 separate arguments mapping to each piece of the data object above.
+  Your function should take either an object as its one argument, or 5 separate arguments mapping to each piece of the data object above.
 
   Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
 
@@ -110,5 +119,40 @@ const data = [
   Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
 
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
-
 */
+
+const articles = document.querySelector('.articles');
+
+const createComponent = (data) => {
+  const { title, date, firstParagraph, secondParagraph, thirdParagraph } = data;
+  const articleDiv = document.createElement('div');
+  const articleTitle = document.createElement('h2');
+  const dateP = document.createElement('p');
+  const firstP = document.createElement('p');
+  const secondP = document.createElement('p');
+  const thirdP = document.createElement('p');
+  const expandButton = document.createElement('span');
+
+  articleDiv.classList.add('article');
+  dateP.classList.add('date');
+  expandButton.classList.add('expandButton');
+
+  articleDiv.append(articleTitle, dateP, firstP, secondP, thirdP, expandButton);
+
+  articleTitle.textContent = title;
+  dateP.textContent = date;
+  firstP.textContent = firstParagraph;
+  secondP.textContent = secondParagraph;
+  thirdP.textContent = thirdParagraph;
+  expandButton.textContent = `View`;
+
+  expandButton.addEventListener('click', () => {
+    articleDiv.classList.toggle('article-open');
+  })
+
+  return articleDiv;
+}
+
+data.forEach(article => {
+  articles.append(createComponent(article));
+});
