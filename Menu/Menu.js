@@ -57,10 +57,21 @@ const createMenuComponent = (data) => {
 const menuDiv = createMenuComponent(menuItems);
 const menuButton = document.querySelector('.menu-button');
 const header = document.querySelector('.header');
+const body = document.querySelector('body');
+
+//button picture changing
+let menuButtonToggle = false;
+const menuImg = './assets/menu.png';
+const cancelImg = './assets/cancel.png';
+
 
 menuButton.addEventListener('click', () =>{
   menuDiv.classList.toggle('menu--open');
   menuDiv.classList.toggle('menu-open');
 });
 
-header.append(menuDiv);
+// header.append(menuDiv);
+body.append(menuDiv);
+
+//change button picture without css background images
+menuButton.setAttribute('src', menuImg);
