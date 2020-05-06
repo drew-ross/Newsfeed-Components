@@ -155,4 +155,4 @@ const createComponent = (data) => {
 
 data.forEach(article => {
   articles.append(createComponent(article));
-})
+});
